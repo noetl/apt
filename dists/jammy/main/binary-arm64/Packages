@@ -1,23 +1,16 @@
 Package: noetl
-Version: 2.5.4-1
+Version: 2.8.3-1
 Architecture: arm64
 Maintainer: NoETL Team <support@noetl.io>
-Filename: pool/main/noetl_2.5.4-1_arm64.deb
-Size: 1815358
-MD5sum: 4869c2bd984d4df5a2c7e514e80d15de
-SHA1: 24866bc55b44f70cbf0b27a1a8901fd822bade97
-SHA256: 8e746c5dbe6dc58d798a06bf49f0233f5ce37ef389399b3337b3547be1f390ed
+Filename: pool/main/noetl_2.8.3-1_arm64.deb
+Size: 9732892
+MD5sum: 0edb07314ae23aef76eaad2a1bc8e02d
+SHA1: 9a8e4d00766f702750c82aec9822dad0187332b8
+SHA256: a622cf7d3fa97de6b7b08d560a68d97384894bdae6e7c300c8ff73521849e1c6
 Section: utils
 Priority: optional
 Homepage: https://noetl.io
 Description: NoETL workflow automation CLI
  NoETL is a workflow automation framework for data processing
  and MLOps orchestration with a distributed server-worker architecture.
- .
- This package provides the noetl command-line interface for:
-  - Local playbook execution without server infrastructure
-  - Server and worker process management
-  - Resource management (playbooks and credentials)
-  - Kubernetes cluster operations
-  - Database schema management
 

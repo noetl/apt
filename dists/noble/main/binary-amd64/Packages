@@ -1,0 +1,16 @@
+Package: noetl
+Version: 2.8.3-1
+Architecture: amd64
+Maintainer: NoETL Team <support@noetl.io>
+Filename: pool/main/noetl_2.8.3-1_amd64.deb
+Size: 11663768
+MD5sum: 9dd0bb2ba66fa3e9686e4e3f7e769d0b
+SHA1: 0da8018f83c18884c86ff25d8b1fee6ced8b4cb0
+SHA256: 30674df59ddf269f65086cf9a25a5cc666464f73bc4e6eca7d7227bc9b8dcd21
+Section: utils
+Priority: optional
+Homepage: https://noetl.io
+Description: NoETL workflow automation CLI
+ NoETL is a workflow automation framework for data processing
+ and MLOps orchestration with a distributed server-worker architecture.
+
