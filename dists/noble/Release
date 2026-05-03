@@ -3,22 +3,19 @@ Label: NoETL APT Repository
 Suite: noble
 Codename: noble
 Version: 2.13.0
-Architectures: arm64 amd64
+Architectures: amd64
 Components: main
 Description: NoETL APT Repository
-Date: Mon, 30 Mar 2026 06:42:23 +0000
+Date: Sun, 03 May 2026 15:15:53 GMT
 MD5Sum:
  65ecaafe85429634c6180c54e3e15beb              389 main/binary-amd64/Packages
- 047c5a68af4036fb3d0d6287320a15a5              320 main/binary-amd64/Packages.gz
- 63d071868c97540fe910c9bf99fb7927             2080 main/binary-arm64/Packages
- 4d8830dc16ac0114fe56ba7a33ed2d82              793 main/binary-arm64/Packages.gz
+ 7cda8c21e486f764951935a9e6414e1a              311 main/binary-amd64/Packages.gz
+ f404d49f8f7522b00b43c0f61a7c33d4               78 main/binary-amd64/Release
 SHA1:
  448236b7810da155d4a921a9588d273575b6d3ae              389 main/binary-amd64/Packages
- c9138e6b6fb38019a6c45b79e851855133bbd49e              320 main/binary-amd64/Packages.gz
- 5242c9a8ef070dde116c2967263ad31beeb195f7             2080 main/binary-arm64/Packages
- 36515a4ffe8375e2775f38aedd463738cff224f2              793 main/binary-arm64/Packages.gz
+ f10a7395fb1c8d6b6a34c58746c1c03ec64b1668              311 main/binary-amd64/Packages.gz
+ 75909c57855ee233671237db89d3d0a70d40c908               78 main/binary-amd64/Release
 SHA256:
  ff71e2e6ae622c94743aa4f11c1d45834909c56d616379e012866d779f58b047              389 main/binary-amd64/Packages
- 349be0313a5c3c6a09a9296d25d30a61a70a4a839fc739b4d952e477b13228f4              320 main/binary-amd64/Packages.gz
- b3bb1f3f38b4828319e33ad3f5fce2ad052436642a5bc9bca6729b55e441d326             2080 main/binary-arm64/Packages
- 80236ea09e817e11d5166b0d04161d5f3a767364f1e76764a19e083534692cbd              793 main/binary-arm64/Packages.gz
+ 050983afbacd2fe184c5ff39a16b7758be3b582f10869f0fe9c82fe6ced789b5              311 main/binary-amd64/Packages.gz
+ 33afe93ef67ccac866da57faa20d36e7205c9354481f5d33aff1793f149ede04               78 main/binary-amd64/Release
