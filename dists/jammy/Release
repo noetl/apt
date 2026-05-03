@@ -3,22 +3,19 @@ Label: NoETL APT Repository
 Suite: jammy
 Codename: jammy
 Version: 2.13.0
-Architectures: arm64 amd64
+Architectures: amd64
 Components: main
 Description: NoETL APT Repository
-Date: Mon, 30 Mar 2026 06:41:58 +0000
+Date: Sun, 03 May 2026 15:15:53 GMT
 MD5Sum:
  65ecaafe85429634c6180c54e3e15beb              389 main/binary-amd64/Packages
- 35e34ca2d0a5799b0795bc79db8d95bb              320 main/binary-amd64/Packages.gz
- 63d071868c97540fe910c9bf99fb7927             2080 main/binary-arm64/Packages
- 67f3994d43637eb0899d528864f817b7              793 main/binary-arm64/Packages.gz
+ 7cda8c21e486f764951935a9e6414e1a              311 main/binary-amd64/Packages.gz
+ 56d6a93960c7a2cf4c62d3030ed01bea               78 main/binary-amd64/Release
 SHA1:
  448236b7810da155d4a921a9588d273575b6d3ae              389 main/binary-amd64/Packages
- 5597f28bfd6dd339bf19f8fc0d72e4cee385259c              320 main/binary-amd64/Packages.gz
- 5242c9a8ef070dde116c2967263ad31beeb195f7             2080 main/binary-arm64/Packages
- d54b1906ff04abce64ef3ead66968efd4ae1f537              793 main/binary-arm64/Packages.gz
+ f10a7395fb1c8d6b6a34c58746c1c03ec64b1668              311 main/binary-amd64/Packages.gz
+ 9b32e4c0aaa0d7838b46a792096054202cd83da0               78 main/binary-amd64/Release
 SHA256:
  ff71e2e6ae622c94743aa4f11c1d45834909c56d616379e012866d779f58b047              389 main/binary-amd64/Packages
- 75183811cfd0e31622572231726e44846f28419b9c86dba4390adb30ed7f193b              320 main/binary-amd64/Packages.gz
- b3bb1f3f38b4828319e33ad3f5fce2ad052436642a5bc9bca6729b55e441d326             2080 main/binary-arm64/Packages
- 30519c3b2540bfd9b592bbabc097c73b440e7259714f39a8141d80cbcdf0915e              793 main/binary-arm64/Packages.gz
+ 050983afbacd2fe184c5ff39a16b7758be3b582f10869f0fe9c82fe6ced789b5              311 main/binary-amd64/Packages.gz
+ 496fbbf7c9ab87c05404c6910de63a7b42fa76faa0e12ca2d7484e73581a9008               78 main/binary-amd64/Release
