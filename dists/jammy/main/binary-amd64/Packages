@@ -1,12 +1,12 @@
 Package: noetl
-Version: 4.20.0-1
+Version: 4.21.0-1
 Architecture: amd64
 Maintainer: NoETL <support@noetl.io>
-Filename: pool/main/noetl_4.20.0-1_amd64.deb
-Size: 34178634
-MD5sum: 9b52aeb94240e51975455e84569cde93
-SHA1: 239e02521a7f4bba6f469d4468f136cd0c0d671c
-SHA256: 606325650d541f74096575d85c651a469e05f6538f7d723ee6540347a51777f2
+Filename: pool/main/noetl_4.21.0-1_amd64.deb
+Size: 34175552
+MD5sum: 5359fa9e1c9b11252db35d18da83061d
+SHA1: 2059732f0ccddd0dcb7ee1f6c0e9787f7ec65fb4
+SHA256: 116eeea999cc92e805ac7086588f94e772e84b99c8ec7d2edf6b8dc63db214e9
 Section: utils
 Priority: optional
 Description: NoETL workflow automation CLI
