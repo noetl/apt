@@ -1,0 +1,48 @@
+# noetl/ai-meta#375 — this repo had no CI, and it is a PUBLISHED package index.
+# If `Packages` and `pool/` disagree, `apt-get install noetl` fails for every
+# user and nothing here would have said so.
+#
+# The generator is NOT in this repo: it is the `update-apt-repo` job in
+# noetl/cli's release.yml, which runs dpkg-scanpackages and apt-ftparchive and
+# pushes the result. This workflow therefore guards the ARTIFACT, not the code
+# that writes it — which is the only thing a check living here can do.
+#
+# ci/check-repo.py has two tiers on purpose:
+#
+#   FAIL   — unambiguous corruption. A .deb whose SHA256 no longer matches its
+#            index entry is a broken install for everyone.
+#   REPORT — known generator shortcomings (noetl/ai-meta#390), printed in full
+#            on every run with their denominators. They are not failures because
+#            fixing them is a decision about what to publish — notably whether
+#            to index arm64 .debs whose newest is 2.8.7 against amd64's 5.0.1.
+#
+# They are REPORTed rather than dropped because a known defect with no recurring
+# output becomes an unknown defect. Every run restates them.
+#
+# Proven able to fail, four ways: corrupt the indexed .deb (Size + SHA256),
+# corrupt Packages.gz (decompress mismatch), tamper with Packages (Release
+# checksum mismatch), and run against an empty pool (population floor).
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: repository integrity
+        run: python3 ci/check-repo.py
