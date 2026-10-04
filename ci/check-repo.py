@@ -138,12 +138,18 @@ def main() -> int:
             if len(parts) != 3:
                 continue
             digest, size, rel_path = parts
-            # `apt-ftparchive release D > D/Release` includes its own output
-            # file in the listing, and the size it records is whatever Release
-            # happened to be mid-write.  That entry can never be correct; it is
-            # a generator bug, not repository corruption.  Skipping it here is
-            # why it appears under REPORT below instead.
+            # `apt-ftparchive release D > D/Release` used to include its own
+            # output file in the listing, at whatever size Release happened to
+            # be mid-write -- an entry that can never be correct.  Fixed in
+            # noetl/cli (the generator now builds to $RUNNER_TEMP and moves the
+            # file in), and verified absent on both suites, so this is a FAILURE
+            # now rather than something to skip.
             if rel_path == "Release":
+                failures.append(
+                    f"{rel} lists ITSELF in its own {cur} table -- the generator "
+                    f"is writing Release into the directory it scans again "
+                    f"(noetl/ai-meta#390)"
+                )
                 continue
             full = os.path.join(f"dists/{dist}", rel_path)
             if not os.path.exists(full):
@@ -153,32 +159,65 @@ def main() -> int:
             verified += 1
             if hashlib.new(algo_for[cur], blob).hexdigest() != digest or int(size) != len(blob):
                 failures.append(f"{rel} [{cur}] mismatch for {rel_path}")
-    print(f"   verified {verified} checksum entries (self-referential 'Release' entries skipped)")
+    print(f"   verified {verified} checksum entries (a self-referential 'Release' entry is now a FAILURE, not a skip)")
     if verified == 0 and dists:
         failures.append("0 Release checksum entries verified -- Release files are empty or unparsed")
 
-    # ---- REPORT tier
-    print(f"\n── known generator shortcomings (tracked as {TRACKER}; not failures)")
+    # ---- completeness, promoted from REPORT to FAIL once noetl/cli's generator
+    # was fixed (noetl/ai-meta#390).  These were reported-not-failed while the
+    # pipeline could not satisfy them; it can now, and verified does, so a
+    # regression must be loud instead of printed.
+    print("\n── index completeness")
     orphans = [d for d in debs if d not in listed]
     print(f"   .debs in pool but in NO index: {len(orphans)} of {len(debs)}")
-    print("     cause: noetl/cli release.yml runs dpkg-scanpackages WITHOUT")
-    print("            --multiversion, so only the newest version is indexed.")
-    print("            `apt-get install noetl=<older>` cannot resolve.")
+    if orphans:
+        failures.append(
+            f"{len(orphans)} of {len(debs)} .debs are in no index -- "
+            f"dpkg-scanpackages is missing --multiversion, so only the newest "
+            f"version resolves and `apt-get install noetl=<older>` cannot "
+            f"(first: {orphans[0]})"
+        )
     indexed_arches = sorted({p.split("binary-")[1].split("/")[0] for p in indexes})
     pool_arches = sorted(by_arch)
     unindexed = [a for a in pool_arches if a not in indexed_arches]
     print(f"   architectures in pool: {pool_arches}; indexed: {indexed_arches}")
     if unindexed:
-        print(f"     ⚠ NOT INDEXED: {unindexed} -- those .debs are unreachable to apt")
+        failures.append(
+            f"architectures present in pool/ but indexed nowhere: {unindexed} -- "
+            f"those .debs are unreachable to apt, which is how arm64 looked "
+            f"supported for months while serving nothing"
+        )
+
+    # Each index must contain ONLY its own architecture.  Without
+    # `dpkg-scanpackages --arch` every .deb lands in one index regardless of
+    # architecture, which was latent until arm64 existed.
+    for idx in indexes:
+        arch = idx.split("binary-")[1].split("/")[0]
+        for pkg in parse_stanzas(idx):
+            got = pkg.get("Architecture")
+            if got and got not in (arch, "all"):
+                failures.append(
+                    f"{idx} lists an Architecture={got} package -- the scan is "
+                    f"missing --arch, so a .deb can be served to the wrong "
+                    f"architecture"
+                )
+                break
+
+    # `Version` is deliberately NOT required: it is optional in a Debian
+    # Release file and the generator does not set it.  Suite and Codename are
+    # the ones apt actually matches on.
+    need = ["Origin", "Label", "Suite", "Codename", "Architectures", "Components"]
     for dist in dists:
         txt = open(f"dists/{dist}/Release", encoding="utf-8").read()
-        want = ["Origin", "Label", "Suite", "Codename", "Version",
-                "Architectures", "Components", "Description"]
-        missing = [f for f in want if not re.search(rf"^{f}:", txt, re.M)]
+        missing = [f for f in need if not re.search(rf"^{f}:", txt, re.M)]
+        print(f"   dists/{dist}/Release header fields: "
+              f"{'all present' if not missing else 'MISSING ' + str(missing)}")
         if missing:
-            print(f"   dists/{dist}/Release is missing header fields: {missing}")
-    print("     cause: `apt-ftparchive release` emits only checksums + Date unless")
-    print("            given APT::FTPArchive::Release::* settings.")
+            failures.append(
+                f"dists/{dist}/Release is missing {missing} -- apt-ftparchive "
+                f"emits only checksums + Date without APT::FTPArchive::Release::* "
+                f"settings"
+            )
 
     print("\n" + "─" * 64)
     if failures:
