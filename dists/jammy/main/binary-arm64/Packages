@@ -110,3 +110,16 @@ Section: utils
 Priority: optional
 Description: NoETL workflow automation CLI
 
+Package: noetl
+Version: 5.3.1-1
+Architecture: arm64
+Maintainer: NoETL <support@noetl.io>
+Filename: pool/main/noetl_5.3.1-1_arm64.deb
+Size: 32446484
+MD5sum: 524206ff593aceb274ebf76560d50ca6
+SHA1: d629a70d0706c6b9b8d2a62ef813308b553aa9e3
+SHA256: 328be501336cc22e26cbe78f64486318a2eca0ffb97f1eb5d7355a624aa58449
+Section: utils
+Priority: optional
+Description: NoETL workflow automation CLI
+
