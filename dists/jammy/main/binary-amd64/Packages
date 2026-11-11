@@ -440,3 +440,16 @@ Section: utils
 Priority: optional
 Description: NoETL workflow automation CLI
 
+Package: noetl
+Version: 6.4.0-1
+Architecture: amd64
+Maintainer: NoETL <support@noetl.io>
+Filename: pool/main/noetl_6.4.0-1_amd64.deb
+Size: 38990666
+MD5sum: cb81f89b809b0398c49b9f56b95c270d
+SHA1: b69b592c5fabce28c1f95e0b6e6ae028321f60aa
+SHA256: 5aabadba4260389f9d7336d2e90005d4c4024ad8424f640c5c09521d1aca00c1
+Section: utils
+Priority: optional
+Description: NoETL workflow automation CLI
+
